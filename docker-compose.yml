@@ -61,6 +61,5 @@ services:
           @ini_set( 'display_errors', 0 );
           // Use dev versions of core JS and CSS files (only needed if you are modifying these core files)
           define( 'SCRIPT_DEBUG', true );
-      XDEBUG_CONFIG: remote_host=128.178.1.1; idekey=PHPSTORM
       PHP_IDE_CONFIG: serverName=test-app
       PHP_XDEBUG_ENABLED: 1
