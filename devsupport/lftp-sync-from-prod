@@ -1,0 +1,17 @@
+#!/bin/bash
+
+HOST='ftp://ic-ftps.epfl.ch'
+: ${USER:=`whoami`}
+
+LOCAL_BASE=data/wp
+REMOTE_BASE=/ai.epfl.ch
+
+echo -n "Password: "; read -s PASSWORD
+
+for mirrored in wp-content/uploads; do
+
+lftp -u "$USER,$PASSWORD" "$HOST" <<SCRIPT
+mirror --use-pget-n=10 $REMOTE_BASE/$mirrored $LOCAL_BASE/$mirrored;
+SCRIPT
+
+done
