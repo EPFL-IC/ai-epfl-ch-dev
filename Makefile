@@ -8,10 +8,10 @@ down:
 
 .PHONY: restore
 restore:
-	$(MAKE) restore-sql restore-uploads
+	$(MAKE) restore-sql restore-files
 
-.PHONY: restore-uploads
-restore-uploads:
+.PHONY: restore-files
+restore-files:
 	./devsupport/lftp-sync-from-prod
 
 .PHONY: restore-sql

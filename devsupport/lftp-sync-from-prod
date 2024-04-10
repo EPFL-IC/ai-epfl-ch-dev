@@ -10,8 +10,17 @@ echo -n "Password: "; read -s PASSWORD
 
 for mirrored in wp-content/uploads; do
 
-lftp -u "$USER,$PASSWORD" "$HOST" <<SCRIPT
+lftp -u "$USER,$PASSWORD" "$HOST" <<MIRROR_SCRIPT
 mirror --use-pget-n=10 $REMOTE_BASE/$mirrored $LOCAL_BASE/$mirrored;
-SCRIPT
+MIRROR_SCRIPT
+
+done
+
+for file in .htaccess; do
+
+lftp -u "$USER,$PASSWORD" "$HOST" <<COPY_SINGLE_FILE_SCRIPT
+set xfer:clobber true
+get $REMOTE_BASE/$file -o $LOCAL_BASE/$file;
+COPY_SINGLE_FILE_SCRIPT
 
 done
