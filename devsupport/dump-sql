@@ -1,0 +1,18 @@
+#!/bin/bash
+
+SITENAME="${1:-ai.epfl.ch}"; shift
+
+KEYBASE_FILE=/keybase/team/ai_epfl_ch/passwords
+RELAY=wwp-test
+
+set -eo pipefail
+
+credential () {
+  keybase fs read "$KEYBASE_FILE" | yq ".[\"$SITENAME\"].$1"
+}
+
+ssh $RELAY mysqldump \
+  --host="$(credential dbhost | cut -d: -f1)" \
+  --user="$(credential user)" \
+  --password="$(credential password)" \
+  "$(credential dbname)"
